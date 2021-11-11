@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+  <!-- About core css -->
+  <link href="{% static "css/about.css" %}" rel="stylesheet"/>
+  {% include 'breadcrumb.html' %}
+
+
+  <div class="about_bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 about_left">
+          <h3 class="m_2">مکتب افغانستان</h3>
+          <ul class="about_grid1 about_box">
+            <li class="about_img"><img src="{% static "img/a1.jpg" %}" class="img-responsive" alt=""/></li>
+            <li class="about_desc">
+              <h5><a href="#">هدف ما</a></h5>
+              <p>مکتب افغانستان یک سایت آموزش آنلاین برای بازماندگان از تحصیل است,
+                هدف ما ساختن محیطی برای یادگیری٬ اکتشاف و ساختن پل بین افراد جامعه است. بیاد با هم برای انسانیت تلاش کنیم!
+               ثبت نام برای عموم رایگان میباشد.</p>
+              <a href="#" class="about_btn">more</a>
+            </li>
+            <div class="clearfix"></div>
+          </ul>
+
+          <ul class="about_grid1">
+            <li class="about_img"><img src="{% static "img/a2.jpg" %}" class="img-responsive" alt=""/></li>
+            <li class="about_desc">
+              <h5><a href="#">تیم ما</a></h5>
+              <p>تیم ما تشکسل شده از رضا کارانیست که رویای دنیایی بهتر را در سر میپرورانند<br> و برای رسیدن به آن تلاش میکنند.</p>
+              <a href="#" class="about_btn">more</a>
+            </li>
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+
+        <div class="col-md-4">
+          <h3 class="m_2">Investment Focuses</h3>
+          <div class="list styled custom-list">
+            <ul>
+              <li><span class="dropcap">1.</span>
+                <h5><a href="#">Increase access to high-quality education for everyone, everywhere.</a></h5>
+                <p> Our students come from every country in the world! Whether you are interested in computer science,
+                  languages, engineering, psychology, writing, electronics, biology, or marketing, we have the course
+                  for you!
+                </p>
+              </li>
+              <li><span class="dropcap">2.</span>
+                <h5><a href="#">Enhance teaching and learning on campus and online.</a></h5>
+                <p>We always try to improve our services by keeping content up-to-date and motivate our professors to
+                  perform to their fullest. We take our mission of increasing global access to quality education
+                  seriously. We connect learners to the best universities and institutions from around the world.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+{% endblock %}

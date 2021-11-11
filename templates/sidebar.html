@@ -1,0 +1,10 @@
+
+<div id="sidebar-wrapper">
+	<ul class="sidebar-nav">
+		{% if queryset %}
+			{% for instance in queryset %}
+				{{ instance.class_name}}
+			{% endfor %}
+		{% endif %}
+    </ul>
+</div>

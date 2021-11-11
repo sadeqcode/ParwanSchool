@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <!-- Contact core css -->
+  <link href="{% static "css/contact.css" %}" rel="stylesheet"/>
+
+
+  <div class="contact">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-xs-12  col-md-6 col-md-offset-3">
+          {% if messages %}
+            {% for message in messages %}
+              <p{% if message.tags %} class="alert alert-success"{% endif %}>{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <form method='POST' action='' class="col-md-5 col-xs-12">
+          {% csrf_token %}
+          {{ contact_form.as_p }}
+          <input type="submit" value="Submit" class="submit">
+        </form>
+
+        <div class="row col-md-6 col-md-offset-1 contact_details">
+
+          <h5>Address :</h5>
+          <i class="address"></i>
+          <div class="contact_address">
+            Kampala, Uganda<br><br>
+          </div>
+
+          <h5>Phone :</h5>
+          <i class="phone"></i>
+          <div class="contact_address">
+            +256771991162<br>
+            +256752205132<br><br>
+          </div>
+
+          <h5>Email :</h5>
+          <i class="mail"></i>
+          <div class="contact_mail">
+            dianajoanita900@gmail.com
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

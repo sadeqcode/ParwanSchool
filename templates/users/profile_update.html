@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <meta http-equiv="x-ua-compatible" content="ie=edge" />
+      <title>profile update</title>
+      <!-- MDB icon -->
+      <link rel="icon" href="PARWAN%20SCHOOL.png" type="image/x-icon" />
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+      <!-- Google Fonts Roboto -->
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      />
+      <!-- MDB -->
+      <link rel="stylesheet" href="css/mdb.rtl.min.css" />
+      <!-- Custom styles -->
+      <style>
+#textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+}
+
+      </style>
+<body>
+
+<div style="width: 100%; border: 1px solid black; overflow: hidden">
+<form class="row mb-4 form-control w3-display-container container-fluid" style="" enctype="multipart/form-data" method="post" action="">
+<div class="col-md-6" style="padding-left:5%; width: 40%; float:left; border: 1px black">
+
+   <h6>change your profile picture: </h6> {% csrf_token %}
+  <div style="text-align: center">  <img src="{{ user.profile_pic.url }}" title="" alt="" style="  display: inline-block; width: 200px;
+  height: 200px; border-radius: 50%; background-repeat: no-repeat; background-position: center center; background-size: cover;">
+    <br>
+{{ form.profile_pic }}
+
+
+<button type="submit" class="btn btn-primary" style="width: 30%; margin-top: 5%">update</button>
+  <!-- Submit button -->
+<br><hr></div>
+
+</div>
+
+
+
+
+<div class="col-md-6" style="padding-left:5%; border: 1px black; overflow: hidden;">
+<div class="row mb-4 form-control w3-display-container container-fluid" style="" >
+    {% csrf_token %}
+    {{ form.user_name.label }}{{ form.user_name }}<hr>
+    {{ form.first_name.label }}{{ form.first_name }}<hr>
+    {{ form.last_name.label }}{{ form.last_name }}<hr>
+    {{ form.email.label }}{{ form.email }}<hr>
+    {{ form.birth_date.label }}{{ form.birth_date }}<hr>
+    {{ form.phone_number.label }}{{ form.phone_number }}<hr>
+    {{ form.about.label }}{{ form.about }}<hr>
+
+
+
+
+  <!-- Submit button -->
+  <button type="submit" class="btn btn-primary btn-block mb-4">update</button>
+</div>
+</div>
+
+</form>
+</div>
+
+
+
+
+</body>
+<!-- MDB -->
+    <script type="text/javascript" src="js/mdb.min.js"></script>
+    <!-- Custom scripts -->
+    <script type="text/javascript"></script>
+</html>
+{% endblock %}

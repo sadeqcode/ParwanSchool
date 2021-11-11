@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
+  rel="stylesheet"
+/>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+
+        <li>
+          <a href="/">Home&nbsp / </a>
+          {% if  path  != None %}
+            {% url 'forum' as forum_url %}
+            {% if request.get_full_path != forum_url %}
+              <span class="spacing-path">&nbsp/&nbsp&nbsp</span><a href="/{{ redirect_path }}">&nbsp{{ path }}&nbsp /</a>
+            {% endif %}
+          {% endif %}
+        </li>
+
+        {% url 'student_course' course_name class_name as student_course_url %}
+        {% if request.get_full_path ==  student_course_url %}
+          <li class="breadcrumb-item"><a href="{% url 'courses' %}">Courses /</a></li>
+        {% endif %}
+
+        {% url 'chapter' course_name class_name as chapter_url %}
+        {% if request.get_full_path ==  chapter_url %}
+          <li class="breadcrumb-item"><a href="{% url 'professor_course' course_name %}">{{ course_name }} /</a></li>
+        {% endif %}
+
+        {% url 'edit_txt' course_name class_name text_id as chapter_url %}
+        {% if request.get_full_path ==  chapter_url %}
+          <li class="breadcrumb-item"><a href="{% url 'chapter' course_name classname %}">{{ course_name }} /</a></li>
+        {% endif %}
+
+        {% url 'edit_chapter' course_name chapter_id as chapter_url %}
+        {% if request.get_full_path ==  chapter_url %}
+          <li class="breadcrumb-item"><a href="{% url 'professor_course' course_name %}">{{ course_name }} /</a></li>
+        {% endif %}
+
+        {% url 'edit_link' course_name class_name yt_id as chapter_url %}
+        {% if request.get_full_path ==  chapter_url %}
+          <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'chapter' course_name class_name %}">{{ course_name }} /</a></li>
+        {% endif %}
+
+        <li class="active">&nbsp{{ title }} /</li>
+      </ol>
+  </nav>
+  </div>
+</nav></body></html>
+<script>
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"
+</script>
+
+
+
