@@ -19,7 +19,8 @@ from django.contrib import messages
 
 import users.models
 from courses.models import Class, course, topics
-from users.forms import Contact, AddUser, AddCourseForm, EditUser, CreateUserForm, update_profile_form
+from users.forms import Contact, AddUser, EditUser, CreateUserForm, update_profile_form
+from courses.forms import AddClassForm, AddCourseForm, AddTopicForm
 from users.models import profile as userprofile
 from users.models import profile
 
@@ -141,24 +142,24 @@ def admin(request):
     return render(request, "users/sysadmin_dashboard.html", context)
 
 
-def professor(request):
-    add_course_form = AddCourseForm(request.POST or None)
-    queryset_course = course.objects.filter(user__username=request.user)
+# def professor(request):
+#    add_course_form = AddCourseForm(request.POST or None)
+#    queryset_course = course.objects.filter(user__username=request.user)
 
-    context = {
-        "title": "Professor",
-        "add_course_form": add_course_form,
-        "queryset_course": queryset_course,
-    }
+#    context = {
+#        "title": "Professor",
+#        "add_course_form": add_course_form,
+#        "queryset_course": queryset_course,
+#    }
 
-    if add_course_form.is_valid():
-        course_name = add_course_form.cleaned_data.get("course_name")
-        instance = add_course_form.save(commit=False)
-        instance.user = request.user
-        instance.save()
-        return redirect(reverse('professor_course', kwargs={'course_name': course_name}))
+#    if add_course_form.is_valid():
+#        course_name = add_course_form.cleaned_data.get("course_name")
+#        instance = add_course_form.save(commit=False)
+#        instance.user = request.user
+#        instance.save()
+#        return redirect(reverse('professor_course', kwargs={'course_name': course_name}))
 
-    return render(request, "users/professor_dashboard.html", context)
+#   return render(request, "users/professor_dashboard.html", context)
 
 
 @login_required
@@ -174,6 +175,49 @@ def student(request):
     }
 
     return render(request, "users/student_dashboard.html", context)
+
+
+@user_passes_test(lambda user: userprofile.is_teacher)
+def add_course(request):
+    form = AddCourseForm
+    if request.method == 'POST':
+        form = AddCourseForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    context = {
+        'form': form
+    }
+    return render(request, 'courses/new_course.html', context)
+
+
+@user_passes_test(lambda user: userprofile.is_teacher)
+def add_topic(request):
+    form = AddTopicForm
+    if request.method == 'POST':
+        form = AddTopicForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    context = {
+        'form': form
+    }
+    return render(request, 'courses/new_topic.html', context)
+
+
+@user_passes_test(lambda user: userprofile.is_teacher)
+def add_class(request):
+    form = AddClassForm
+    if request.method == 'POST':
+        form = AddClassForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    context = {
+        'form': form
+    }
+    return render(request, 'courses/new_class.html', context)
 
 
 @user_passes_test(lambda user: user.is_site_admin)

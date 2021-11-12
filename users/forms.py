@@ -41,21 +41,6 @@ class Contact(forms.Form):
     message = forms.CharField(widget=forms.Textarea)
 
 
-class AddCourseForm(forms.ModelForm):
-    class Meta:
-        model = course
-        fields = ['course_name', 'is_general_course']
-
-    def clean_course_name(self):
-        course_name = self.cleaned_data.get('course_name')
-
-        regexp = re.compile(r'[0-9a-zA-Z ]')
-        if not regexp.match(course_name):
-            raise forms.ValidationError("Please make sure course name contains (a-z, A-Z, 0-9, space) characters")
-
-        return course_name
-
-
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = profile
@@ -67,6 +52,3 @@ class update_profile_form(forms.ModelForm):
     class Meta:
         model = profile
         fields = ['user_name', 'email', 'first_name', 'last_name', 'phone_number', 'birth_date', 'profile_pic', 'about']
-
-
-
