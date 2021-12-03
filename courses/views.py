@@ -99,7 +99,19 @@ def your_classes(request):
     return render(request, 'users/student_dashboard.html', context)
 
 
-
+def your_class_detail(request, class_name):
+    curr_class = Class.objects.get(class_name=class_name)
+    curr_class_participants = profile.objects.filter(user_name__in=curr_class.class_participants.all())
+    professors = profile.objects.filter(is_teacher=True)
+    students = profile.objects.filter(is_teacher=False).filter(is_staff=False)
+    context = {
+        "class": curr_class,
+        "user": request.user,
+        "participants": curr_class_participants,
+        "professors": professors,
+        "students": students,
+    }
+    return render(request, 'users/your_class_detail.html', context)
 
 
 @user_passes_test(lambda user: profile.is_teacher)

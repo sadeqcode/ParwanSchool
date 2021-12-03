@@ -24,7 +24,7 @@ table, th, td {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   width: 100%;
-  padding: 16px;
+  padding-top: 10px;
   text-align: left;
   background-color: #f1f1f1;
 }
@@ -84,14 +84,15 @@ table, th, td {
       padding: 0 10px;
     }
     #imgwidth {
-    width: 300px;
+    width: 65%;
     height: 200px;
 }
     #rowcard{
         width: 100%;
         padding-left: 65%;
-        margin-top: -230px;
-        padding-bottom: 50px;
+        margin-top: -215px;
+        padding-bottom: 10px;
+        padding-right: -100px;
 }
 }
 
@@ -108,14 +109,14 @@ table, th, td {
      <div class="card">
         <img src="{{ instance.class_pic_URL }}" alt="Avatar" id= 'imgwidth' >
         <div class="container">
-            <hr>
-              <div class="w3-container" id = 'rowcard'">
+
+              <div class="w3-container" id = 'rowcard'>
                <div class="w3-panel w3-card" style="text-align: center; "><h4> <b> {{ instance.class_name }}</b></h4></div>
                            <div class="w3-panel w3-card" style="text-align: center; "><h4> <b> {{ instance.course }}</b></h4></div>
 
                   <div class="w3-panel w3-card" style="text-align: center; "><h6>مضمون: <b> {{ instance.topic }}</b></h6></div></div>
 
-            <div class="w3-container" style="width: 100%">
+            <div class="w3-container" style="width: 100%"><hr>
                 <div class="w3-panel w3-card-2" style="text-align: right"><h6>{% for each in professors %}{% for i in instance.class_participants.all %}{% if i == each %}|<b> {{ i }} </b>{% endif %}{% endfor %}{% endfor %} : استاد ها  </h6></div>
                 <div class="w3-panel w3-card-2" style="text-align: right"><h6>{% for each in students %}{% for i in instance.class_participants.all %}{% if i == each %}|<b> {{ i }} </b>{% endif %}{% endfor %}{% endfor %} : دیگر محصل ها  </h6></div>
                 <div class="w3-panel w3-card-4" style="text-align: right"><h6> <b><a href="{{ instance.link }}">{{ instance.link }}</a></b> : لینک گروه</h6></div>
@@ -180,32 +181,12 @@ table, th, td {
                     {% endif %}
                 </tr>
             </table>
-        </div>
+        </div><hr><a class="w3-btn w3-button w3-blue-grey w3-hover-green" style="width:40%; height: 60px " href="{% url 'class-detail' instance.class_name %}"><b>... اطلاعات بیشتر</b> </a>
      </div><br><hr></div>
     {% endfor %}
 {% endif %}
 </div>
 
-      {% if queryset %}
-        {% for instance in queryset %}
-          <div class="col-md-4 course-box-model">
-
-            <a href="{% url 'course_homepage' instance.course_name %} ">
-              <div class="inner-wrap">
-                <div class="inner-top">
-                  {{ instance.course_name }}
-                </div>
-                <div class="inner-middle"></div>
-                <div class="inner-bottom">
-                  <span class="author">Author: {{ instance.user }}</span>
-                  <span class="course-type">Self-Paced</span>
-                </div>
-              </div>
-            </a>
-          </div>
-
-        {% endfor %}
-      {% endif %}
     </div>
   </div>
 

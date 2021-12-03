@@ -2,52 +2,125 @@
 {% load static %}
 
 {% block content %}
-  <!-- Contact core css -->
-  <link href="{% static "css/contact.css" %}" rel="stylesheet"/>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Style inputs */
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+/* Style the container/contact section */
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+/* Create two columns that float next to eachother */
+.column {
+  float: left;
+  width: 50%;
+  margin-top: 6px;
+  padding: 20px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Header/Logo Title */
+.header {
+  padding: 60px;
+  text-align: center;
+  background: midnightblue;
+  color: white;
+  font-size: 30px;
+}
 
 
-  <div class="contact">
-    <div class="container">
-      <div class="row">
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }}
 
-        <div class="col-xs-12  col-md-6 col-md-offset-3">
-          {% if messages %}
-            {% for message in messages %}
-              <p{% if message.tags %} class="alert alert-success"{% endif %}>{{ message }}</p>
-            {% endfor %}
-          {% endif %}
-        </div>
 
-        <form method='POST' action='' class="col-md-5 col-xs-12">
+</style>
+</head>
+<body>
+<br><br><br><br>
+{% if sender %}
+    <div style="text-align: center; background-color: green; width: 40%; height: 200%; margin-left: 30%">
+    <br><h1>ما پیام شما را دریافت کردیم</h1>
+    <h3>به زودی به شما پاسخ میدهیم</h3><br>
+    </div>
+{% else %}
+<div class="header">
+  <h1>تماس با ما ...</h1>
+  <p></p>
+</div>
+
+<div class="container">
+  <div style="text-align:center">
+    <h2>Contact Us</h2><br>
+  </div>
+  <div class="row">
+    <div class="column">
+      <img src="https://d27028dliefpk3.cloudfront.net/assets/contact/masaischool-contact-us.svg" style="width:100%">
+    </div>
+    <div class="column">
+      <form action="" method="post">
           {% csrf_token %}
-          {{ contact_form.as_p }}
-          <input type="submit" value="Submit" class="submit">
-        </form>
+        <label for="fname">نام شما : </label>
+        <input type="text" id="fname" name="name" placeholder="نام شما ..">
 
-        <div class="row col-md-6 col-md-offset-1 contact_details">
+        <label for="email">ایمیل : </label>
+        <input type="text" placeholder="آدرس ایمیل" name="mail" required>
 
-          <h5>Address :</h5>
-          <i class="address"></i>
-          <div class="contact_address">
-            Kampala, Uganda<br><br>
-          </div>
+        <label for="message">پیام شما : </label>
+        <textarea id="subject" name="message" placeholder="برای ما بنوسید ..." style="height:170px"></textarea>
+        <input type="submit" value="Submit">
 
-          <h5>Phone :</h5>
-          <i class="phone"></i>
-          <div class="contact_address">
-            +256771991162<br>
-            +256752205132<br><br>
-          </div>
-
-          <h5>Email :</h5>
-          <i class="mail"></i>
-          <div class="contact_mail">
-            dianajoanita900@gmail.com
-          </div>
-        </div>
-
-      </div>
+      </form>
     </div>
   </div>
+</div>
+{% endif %}
+<br><br><br>
+</body>
+</html>
+
 
 {% endblock %}

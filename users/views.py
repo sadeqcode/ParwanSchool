@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from itertools import chain
 from django.http import Http404
+from django.core.mail import send_mail
 
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
@@ -29,43 +30,61 @@ from users.models import profile
 
 
 def home(request):
+    teachers_count = userprofile.objects.filter(is_teacher=True).count
+    students_count = userprofile.objects.filter(is_teacher=False).filter(is_staff=False).count()
+    class_count = Class.objects.all().count()
+    topics_count = topics.objects.all().count()
     context = {
         "title": "eLearning",
+        "teachers_count": teachers_count,
+        "students_count": students_count,
+        "class_count": class_count,
+        "topics_count": topics_count,
     }
 
     return render(request, "home.html", context)
 
 
 def about(request):
+    teachers_count = userprofile.objects.filter(is_teacher=True).count
+    students_count = userprofile.objects.filter(is_teacher=False).filter(is_staff=False).count()
+    class_count = Class.objects.all().count()
+    topics_count = topics.objects.all().count()
     context = {
         "title": "About",
+        "teachers_count": teachers_count,
+        "students_count": students_count,
+        "class_count": class_count,
+        "topics_count": topics_count,
     }
 
     return render(request, "about.html", context)
 
 
 def contact(request):
-    contact_form = Contact(request.POST or None)
+    user = userprofile.objects.filter(user_name=request.user)
+    if request.method == 'POST':
+        sender_name = request.POST['name']
+        sender_email = request.POST['mail']
+        sender_message = request.POST['message']
+        send_mail(
+            sender_name,  # subject
+            sender_message,  # massage
+            sender_email,  # from email
+            ['sadeqnameh@gmail.com'],  # to email
+        )
+        context = {
+            "title": "Contact",
+            "sender": user
+        }
+        return render(request, "users/contact.html", context)
 
-    context = {
-        "title": "Contact",
-        "contact_form": contact_form,
-    }
+    else:
+        context = {
+            "title": "Contact",
+        }
 
-    if contact_form.is_valid():
-        sender = contact_form.cleaned_data.get("sender")
-        subject = contact_form.cleaned_data.get("subject")
-        from_email = contact_form.cleaned_data.get("email")
-        message = contact_form.cleaned_data.get("message")
-        message = 'Sender:  ' + sender + '\nFrom:  ' + from_email + '\n\n' + message
-        send_mail(subject, message, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], fail_silently=True)
-        success_message = "We appreciate you contacting us, one of our Customer Service colleagues will get back" \
-                          " to you within a 24 hours."
-        messages.success(request, success_message)
-
-        return redirect(reverse('contact'))
-
-    return render(request, "users/contact.html", context)
+        return render(request, "users/contact.html", context)
 
 
 @login_required

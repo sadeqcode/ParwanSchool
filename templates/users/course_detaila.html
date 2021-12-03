@@ -111,7 +111,7 @@ table, th, td {
         <h5 class="card-title" style="text-align: center">{{ instance.class_name }}</h5>
         <p class="card-text">
         </p>
-     <div class="card " style="width: 100%; alignment: bottom">
+     <div class="card " style="width: 103%; alignment: bottom">
   <ul class="list-group list-group-flush" style="text-align: right">
     <li class="list-group-item">   مضمون : <b>{{ instance.topic }}</b> </li>
 
@@ -121,9 +121,9 @@ table, th, td {
 
 
 <li class="list-group-item">{% for each in professors %}{% for i in instance.class_participants.all %}{% if i == each %}
-        |<b> {{ i }} </b>{% endif %}{% endfor %}{% endfor %}: استاد  </li>
+        |<b> {{ i }} </b>{% endif %}{% endfor %}{% endfor %}: استاد   </li>
   </ul>
-  <div class="card-footer"><p class="card-text" style="text-align: right">{% if instance.description %}{{ instance.description }}{% endif %}</p></div>
+  <div class="card-footer"><p class="card-text" style="text-align: left">{% if instance.description %}{{ instance.description }}{% endif %}</p></div>
 
                 <table style="width:100%">
                 <tr>
@@ -152,7 +152,7 @@ table, th, td {
                     {% endif %}
 
                     {% if instance.friday == True %}
-                       <th> جمعه</th>
+                       <th> جمعه</th>€
                     {% endif %}<hr>
                 </tr>
                 <tr>
@@ -200,7 +200,6 @@ table, th, td {
     {% endfor %}
     {% endif %}
   </div>
-
 
 
 

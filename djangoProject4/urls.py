@@ -32,6 +32,7 @@ urlpatterns = [
     path('profile/', include('users.urls')),
     path("update-profile/", user_views.update_profile, name="update_profile"),
     path("your-classes/", course_views.your_classes, name="your-classes"),
+    re_path(r"your-classes/(?P<class_name>[\w ]+)/$", course_views.your_class_detail, name="class-detail"),
     path("your-classes/add-course", user_views.add_course, name="add-course"),
     path("your-classes/add-topic", user_views.add_topic, name="add-topic"),
     path("your-classes/add-class", user_views.add_class, name="add-class"),
